@@ -22,7 +22,7 @@ class ClassyStandalone(ClassyExternal):
         return self.get_prediction(embeddings)[0]
 
     def pipe(self, text: List[str]) -> List[dict]:
-        """retrieve predicitons for multiple texts
+        """retrieve predictions for multiple texts
 
         Args:
             text (List[str]): a list of texts
@@ -99,7 +99,7 @@ class ClassySentenceTransformerMultiLabel(ClassyStandalone, ClassySkeletonFewSho
         return self.get_prediction(embeddings)[0]
 
     def pipe(self, text: List[str]) -> List[dict]:
-        """retrieve predicitons for multiple texts
+        """retrieve predictions for multiple texts
 
         Args:
             text (List[str]): a list of texts

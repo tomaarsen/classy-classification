@@ -80,7 +80,7 @@ class ClassySkeleton:
         raise NotImplementedError("Needs to be overwritten by superclass")
 
     def get_prediction(self, embeddings: List[List]) -> List[dict]:
-        """get the predicitons for a list om embeddings
+        """get the predictions for a list of embeddings
 
         Args:
             embeddings (List[List]): a list of text embeddings.
