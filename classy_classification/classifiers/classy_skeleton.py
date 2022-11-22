@@ -1,4 +1,3 @@
-import importlib.util
 from typing import List, Union
 
 import numpy as np
@@ -9,13 +8,10 @@ from sklearn.svm import SVC
 from spacy.language import Language
 from spacy.tokens import Doc, Span
 
-onnx = importlib.util.find_spec("fast-sentence-transformers")
-if onnx is None:
+try:
+    from fast_sentence_transformers import FastSentenceTransformer as SentenceTransformer
+except ImportError:
     from sentence_transformers import SentenceTransformer
-else:
-    from fast_sentence_transformers import (
-        FastSentenceTransformer as SentenceTransformer,
-    )
 
 
 class ClassySkeleton:
