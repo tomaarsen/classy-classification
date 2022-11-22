@@ -282,7 +282,7 @@ class ClassyExternal:
         if device:
             self.device = device
 
-        if ONNX is None:
+        if ONNX:
             if self.device in ["gpu", "cuda", 0]:
                 self.device = None  # If None, checks if a GPU can be used.
             else:
