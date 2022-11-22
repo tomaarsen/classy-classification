@@ -10,8 +10,10 @@ from spacy.tokens import Doc, Span
 
 try:
     from fast_sentence_transformers import FastSentenceTransformer as SentenceTransformer
+    ONNX = True
 except ImportError:
     from sentence_transformers import SentenceTransformer
+    ONNX = False
 
 
 class ClassySkeleton:
@@ -280,7 +282,7 @@ class ClassyExternal:
         if device:
             self.device = device
 
-        if onnx is None:
+        if ONNX is None:
             if self.device in ["gpu", "cuda", 0]:
                 self.device = None  # If None, checks if a GPU can be used.
             else:
