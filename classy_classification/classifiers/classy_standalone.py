@@ -1,13 +1,13 @@
 from typing import List, Union
 
 from .classy_spacy import (
-    classyExternal,
-    classySkeletonFewShot,
-    classySkeletonFewShotMultiLabel,
+    ClassyExternal,
+    ClassySkeletonFewShot,
+    ClassySkeletonFewShotMultiLabel,
 )
 
 
-class classyStandalone(classyExternal):
+class ClassyStandalone(ClassyExternal):
     def __call__(self, text: str) -> dict:
         """predict the class for an input text
 
@@ -35,7 +35,7 @@ class classyStandalone(classyExternal):
         return self.get_prediction(embeddings)
 
 
-class classySentenceTransformerFewShot(classyStandalone, classySkeletonFewShot):
+class ClassySentenceTransformerFewShot(ClassyStandalone, ClassySkeletonFewShot):
     def __init__(
         self,
         model: str,
@@ -69,7 +69,7 @@ class classySentenceTransformerFewShot(classyStandalone, classySkeletonFewShot):
         self.set_classification_model()
 
 
-class classySentenceTransformerMultiLabel(classyStandalone, classySkeletonFewShotMultiLabel):
+class ClassySentenceTransformerMultiLabel(ClassyStandalone, ClassySkeletonFewShotMultiLabel):
     def __init__(
         self,
         model: str,
@@ -120,6 +120,6 @@ def classySentenceTransformer(
     multi_label: bool = False,
 ):
     if multi_label:
-        return classySentenceTransformerMultiLabel(model, device, data, config)
+        return ClassySentenceTransformerMultiLabel(model, device, data, config)
     else:
-        return classySentenceTransformerFewShot(model, device, data, config)
+        return ClassySentenceTransformerFewShot(model, device, data, config)

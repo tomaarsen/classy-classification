@@ -7,14 +7,14 @@ from spacy import util
 from spacy.tokens import Doc
 
 from .classy_skeleton import (
-    classyExternal,
-    classySkeleton,
-    classySkeletonFewShot,
-    classySkeletonFewShotMultiLabel,
+    ClassyExternal,
+    ClassySkeleton,
+    ClassySkeletonFewShot,
+    ClassySkeletonFewShotMultiLabel,
 )
 
 
-class classySpacy:
+class ClassySpacy:
     def sentence_pipe(self, doc: Doc):
         sent_docs = [sent.as_doc() for sent in doc.sents]
         inferred_sent_docs = self.pipe(iter(sent_docs), include_sent=False)
@@ -67,10 +67,10 @@ class classySpacy:
                 yield doc
 
 
-class classySpacyInternal(classySpacy):
+class ClassySpacyInternal(ClassySpacy):
     def get_embeddings(self, docs: Union[List[Doc], List[str]]) -> List[float]:
         """Retrieve embeddings from text.
-        Overwrites function from the classySkeleton that is used to get embeddings for training data to fetch internal
+        Overwrites function from the ClassySkeleton that is used to get embeddings for training data to fetch internal
         spaCy embeddings.
 
         Args:
@@ -99,17 +99,17 @@ class classySpacyInternal(classySpacy):
         return np.array(embeddings)
 
 
-class classySpacyInternalFewShot(classySpacyInternal, classySkeletonFewShot):
+class ClassySpacyInternalFewShot(ClassySpacyInternal, ClassySkeletonFewShot):
     def __init__(self, *args, **kwargs):
-        classySkeletonFewShot.__init__(self, *args, **kwargs)
+        ClassySkeletonFewShot.__init__(self, *args, **kwargs)
 
 
-class classySpacyInternalFewShotMultiLabel(classySpacyInternal, classySkeletonFewShotMultiLabel):
+class ClassySpacyInternalFewShotMultiLabel(ClassySpacyInternal, ClassySkeletonFewShotMultiLabel):
     def __init__(self, *args, **kwargs):
-        classySkeletonFewShotMultiLabel.__init__(self, *args, **kwargs)
+        ClassySkeletonFewShotMultiLabel.__init__(self, *args, **kwargs)
 
 
-class classySpacyExternalFewShot(classySpacy, classyExternal, classySkeletonFewShot):
+class ClassySpacyExternalFewShot(ClassySpacy, ClassyExternal, ClassySkeletonFewShot):
     def __init__(
         self,
         model: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
@@ -120,10 +120,10 @@ class classySpacyExternalFewShot(classySpacy, classyExternal, classySkeletonFewS
         self.model = model
         self.device = device
         self.set_embedding_model()
-        classySkeletonFewShot.__init__(self, *args, **kwargs)
+        ClassySkeletonFewShot.__init__(self, *args, **kwargs)
 
 
-class classySpacyExternalFewShotMultiLabel(classySpacy, classyExternal, classySkeletonFewShotMultiLabel):
+class ClassySpacyExternalFewShotMultiLabel(ClassySpacy, ClassyExternal, ClassySkeletonFewShotMultiLabel):
     def __init__(
         self,
         model: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
@@ -134,10 +134,10 @@ class classySpacyExternalFewShotMultiLabel(classySpacy, classyExternal, classySk
         self.model = model
         self.device = device
         self.set_embedding_model()
-        classySkeletonFewShotMultiLabel.__init__(self, *args, **kwargs)
+        ClassySkeletonFewShotMultiLabel.__init__(self, *args, **kwargs)
 
 
-class classySpacyExternalZeroShot(classySpacy, classySkeleton):
+class ClassySpacyExternalZeroShot(ClassySpacy, ClassySkeleton):
     def __init__(
         self,
         model: str = "typeform/distilbert-base-uncased-mnli",
@@ -149,7 +149,7 @@ class classySpacyExternalZeroShot(classySpacy, classySkeleton):
         self.model = model
         self.device = device
         self.multi_label = multi_label
-        classySkeleton.__init__(self, *args, **kwargs)
+        ClassySkeleton.__init__(self, *args, **kwargs)
 
     def set_classification_model(self, model: str = None, device: str = None):
         """set the embedding model based on a sentencetransformer model or path

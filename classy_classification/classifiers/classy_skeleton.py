@@ -18,7 +18,7 @@ else:
     )
 
 
-class classySkeleton:
+class ClassySkeleton:
     def __init__(
         self,
         nlp: Language,
@@ -95,7 +95,7 @@ class classySkeleton:
         return self.proba_to_dict(pred_result)
 
 
-class classySkeletonFewShot(classySkeleton):
+class ClassySkeletonFewShot(ClassySkeleton):
     def set_config(self, config: Union[dict, None] = None):
         """
         > This function sets the config attribute of the class to the config parameter if the config parameter is not None,
@@ -188,7 +188,7 @@ class classySkeletonFewShot(classySkeleton):
             self.set_classification_model()
 
 
-class classySkeletonFewShotMultiLabel(classySkeleton):
+class ClassySkeletonFewShotMultiLabel(ClassySkeleton):
     def set_config(self, config: Union[dict, None] = None):
         """
         > This function sets the config attribute of the class to the config parameter if the config parameter is not None,
@@ -248,7 +248,7 @@ class classySkeletonFewShotMultiLabel(classySkeleton):
         self.y = [[1 if sample in values else 0 for values in self.data.values()] for sample in X]
 
 
-class classyExternal:
+class ClassyExternal:
     def get_embeddings(self, docs: Union[List[Doc], List[str]]) -> List[List[float]]:
         """retrieve embeddings from the SentenceTransformer model for a text or list of texts
 
