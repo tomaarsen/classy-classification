@@ -1,4 +1,5 @@
-from typing import List, Union
+from typing import Any, List, Optional, Union
+from abc import ABC, abstractmethod
 
 import numpy as np
 from sklearn import preprocessing
@@ -10,13 +11,15 @@ from spacy.tokens import Doc, Span
 
 try:
     from fast_sentence_transformers import FastSentenceTransformer as SentenceTransformer
+
     ONNX = True
 except ImportError:
     from sentence_transformers import SentenceTransformer
+
     ONNX = False
 
 
-class ClassySkeleton:
+class ClassySkeleton(ABC):
     def __init__(
         self,
         nlp: Language,
@@ -59,25 +62,29 @@ class ClassySkeleton:
         self.set_training_data()
         self.set_classification_model()
 
-    def set_training_data(self):
-        """Overwritten by super class"""
-        raise NotImplementedError("Needs to be overwritten by superclass")
+    @abstractmethod
+    def set_config(self, config: Optional[Union[dict, Any]] = None) -> None:
+        """Implemented by subclass"""
 
-    def set_classification_model(self):
-        """Overwritten by super class"""
-        raise NotImplementedError("Needs to be overwritten by superclass")
+    @abstractmethod
+    def set_training_data(self) -> None:
+        """Implemented by subclass"""
 
+    @abstractmethod
+    def set_classification_model(self) -> None:
+        """Implemented by subclass"""
+
+    @abstractmethod
     def get_embeddings(self):
-        """Overwritten by super class"""
-        raise NotImplementedError("Needs to be overwritten by superclass")
+        """Implemented by subclass"""
 
+    @abstractmethod
     def __call__(self):
-        """Overwritten by super class"""
-        raise NotImplementedError("Needs to be overwritten by superclass")
+        """Implemented by subclass"""
 
+    @abstractmethod
     def pipe(self):
-        """Overwritten by super class"""
-        raise NotImplementedError("Needs to be overwritten by superclass")
+        """Implemented by subclass"""
 
     def get_prediction(self, embeddings: List[List]) -> List[dict]:
         """get the predictions for a list of embeddings
