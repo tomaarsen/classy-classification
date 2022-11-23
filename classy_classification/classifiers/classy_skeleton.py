@@ -160,11 +160,7 @@ class ClassySkeletonFewShot(ClassySkeleton):
             List[dict]: list of key-class proba-value dict
         """
 
-        pred_dict = []
-        for pred in pred_results:
-            pred_dict.append({label: value for label, value in zip(self.le.classes_, pred)})
-
-        return pred_dict
+        return [{label: value for label, value in zip(self.le.classes_, pred)} for pred in pred_results]
 
     def set_training_data(self, data: dict = None):
         """_summary_
@@ -229,11 +225,7 @@ class ClassySkeletonFewShotMultiLabel(ClassySkeleton):
         :type pred_results: List[List]
         :return: A list of dictionaries.
         """
-        pred_dict = []
-        for pred in pred_results:
-            pred_dict.append({label: value for label, value in zip(self.data.keys(), pred)})
-
-        return pred_dict
+        return [{label: value for label, value in zip(self.data.keys(), pred)} for pred in pred_results]
 
     def set_training_data(self, data: dict = None):
         """
