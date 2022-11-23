@@ -85,32 +85,6 @@ class ClassySentenceTransformerMultiLabel(ClassyStandalone, ClassySkeletonFewSho
         self.set_training_data()
         self.set_classification_model()
 
-    def __call__(self, text: str) -> dict:
-        """predict the class for an input text
-
-        Args:
-            text (str): an input text
-
-        Returns:
-            dict: a key-class proba-value dict
-        """
-        embeddings = self.get_embeddings([text])
-
-        return self.get_prediction(embeddings)[0]
-
-    def pipe(self, text: List[str]) -> List[dict]:
-        """retrieve predictions for multiple texts
-
-        Args:
-            text (List[str]): a list of texts
-
-        Returns:
-            List[dict]: list of key-class proba-value dict
-        """
-        embeddings = self.get_embeddings(text)
-
-        return self.get_prediction(embeddings)
-
 
 def classySentenceTransformer(
     data: dict,
