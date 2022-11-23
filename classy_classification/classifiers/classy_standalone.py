@@ -8,6 +8,21 @@ from .classy_spacy import (
 
 
 class ClassyStandalone(ClassyExternal):
+    def __init__(
+        self,
+        model: str,
+        device: str,
+        data: dict,
+        config: Union[dict, None] = None,
+    ):
+        self.data = data
+        self.model = model
+        self.device = device
+        self.set_config(config)
+        self.set_embedding_model()
+        self.set_training_data()
+        self.set_classification_model()
+
     def __call__(self, text: str) -> dict:
         """predict the class for an input text
 
@@ -36,54 +51,11 @@ class ClassyStandalone(ClassyExternal):
 
 
 class ClassySentenceTransformerFewShot(ClassyStandalone, ClassySkeletonFewShot):
-    def __init__(
-        self,
-        model: str,
-        device: str,
-        data: dict,
-        config: Union[dict, None] = None,
-    ) -> None:
-        """initialize a classy skeleton for classification using a SVC config and some input training data.
-
-        Args:
-            data (dict): training data. example
-                {
-                    "class_1": ["example"],
-                    "class 2": ["example"]
-                },
-            device (str): device "cuda"/"cpu",
-            config (_type_, optional): a SVC config.
-                example
-                {
-                    "C": [1, 2, 5, 10, 20, 100],
-                    "kernels": ["linear"],
-                    "max_cross_validation_folds": 5
-                }.
-        """
-        self.data = data
-        self.model = model
-        self.device = device
-        self.set_config(config)
-        self.set_embedding_model()
-        self.set_training_data()
-        self.set_classification_model()
+    pass
 
 
 class ClassySentenceTransformerMultiLabel(ClassyStandalone, ClassySkeletonFewShotMultiLabel):
-    def __init__(
-        self,
-        model: str,
-        device: str,
-        data: dict,
-        config: Union[dict, None] = None,
-    ):
-        self.data = data
-        self.model = model
-        self.device = device
-        self.set_config(config)
-        self.set_embedding_model()
-        self.set_training_data()
-        self.set_classification_model()
+    pass
 
 
 def classySentenceTransformer(
